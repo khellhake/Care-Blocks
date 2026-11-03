@@ -1,5 +1,8 @@
 import { addDaysISO, daysBetween, type ISODate } from './dates';
 
+/** Default care block length: one week. Can be changed in Settings. */
+export const DEFAULT_BLOCK_DAYS = 7;
+
 export interface Block {
   index: number;
   start: ISODate;
@@ -13,7 +16,7 @@ export interface Block {
  * Split [start, end] (both inclusive) into consecutive blocks of `len` days.
  * The final block is shortened if the window doesn't divide evenly.
  */
-export function computeBlocks(start: ISODate, end: ISODate, len = 14): Block[] {
+export function computeBlocks(start: ISODate, end: ISODate, len = DEFAULT_BLOCK_DAYS): Block[] {
   if (!start || !end || len < 1) return [];
   const total = daysBetween(start, end) + 1;
   if (total < 1) return [];

@@ -1,4 +1,5 @@
 import { addDays, nextMonday } from 'date-fns';
+import { DEFAULT_BLOCK_DAYS } from '../lib/blocks';
 import { toISO } from '../lib/dates';
 import type { Settings } from './types';
 
@@ -10,13 +11,13 @@ export function defaultSettings(): Settings {
     patientName: 'Rick',
     startDate: toISO(start),
     endDate: toISO(addDays(start, 7 * 13 - 1)), // ~3 months (13 weeks)
-    blockLengthDays: 14,
+    blockLengthDays: DEFAULT_BLOCK_DAYS,
     banner: { message: '', active: false },
     people: [...DEFAULT_PEOPLE],
     passcodeHash: null,
     careGuide: {
       intro:
-        'Thank you for signing up. A care block is about 2 weeks of living with or staying close to Dad and being his main helper day-to-day. Below is what to expect. Always follow the transplant team’s instructions first — they override anything here.',
+        'Thank you for signing up. A care block is one week of living with or staying close to Dad and being his main helper day-to-day. Below is what to expect. Always follow the transplant team’s instructions first — they override anything here.',
       sections: [
         {
           title: 'Appointments & transportation',

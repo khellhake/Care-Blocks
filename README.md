@@ -2,7 +2,7 @@
 
 A small, phone-friendly app the family uses to coordinate in-home care after Rick's bone marrow transplant.
 
-- **2-week care blocks** across a care window you set (start and end dates, adjustable later).
+- **1-week care blocks** across a care window you set (start and end dates, adjustable later). The block length can be changed in Settings.
 - **Sign up** for a block as Kevin, Brian, Angie, or **Other** (type any name).
 - **Green** = covered, **gray dashed** = open, **amber** = the caregiver has unavailable dates during that block.
 - **Timeline rail:** the tall slider on the right shows every block as a square. Drag it or tap a square to jump ahead.
