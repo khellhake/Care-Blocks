@@ -4,6 +4,7 @@ import { fmtRange, fmtShort, isValidISO } from '../lib/dates';
 import { defaultSettings } from '../data/defaults';
 import { hashPasscode } from '../data/store';
 import type { Assignment, Settings } from '../data/types';
+import { useConfirm } from './Confirm';
 import { Icon } from './Icon';
 import { Modal } from './Modal';
 
@@ -134,6 +135,7 @@ function SettingsForm({ settings, assignments, onSave, onClearAssignments, onClo
   const [newCode, setNewCode] = useState('');
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const ask = useConfirm();
 
   const set = <K extends keyof Settings>(k: K, v: Settings[K]) => setDraft((d) => ({ ...d, [k]: v }));
 
@@ -282,8 +284,12 @@ function SettingsForm({ settings, assignments, onSave, onClearAssignments, onClo
                   type="button"
                   className="btn btn-small btn-outline"
                   style={{ marginTop: 8 }}
-                  onClick={() => {
-                    if (confirm('Remove these old sign-ups? People will need to sign up again for the new blocks.'))
+                  onClick={async () => {
+                    if (
+                      await ask('Remove these old sign-ups? People will need to sign up again for the new blocks.', {
+                        confirmLabel: 'Clear sign-ups',
+                      })
+                    )
                       onClearAssignments(orphans);
                   }}
                 >
@@ -398,8 +404,12 @@ function SettingsForm({ settings, assignments, onSave, onClearAssignments, onClo
             type="button"
             className="btn btn-outline"
             style={{ flex: 1 }}
-            onClick={() => {
-              if (confirm('Replace the Care Guide with the original default text?'))
+            onClick={async () => {
+              if (
+                await ask('Replace the Care Guide with the original default text? Your edits will be lost when you save.', {
+                  confirmLabel: 'Reset guide',
+                })
+              )
                 set('careGuide', defaultSettings().careGuide);
             }}
           >

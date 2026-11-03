@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { samePerson, type Blockout } from '../lib/blocks';
 import { fmtRange, todayISO } from '../lib/dates';
+import { useConfirm } from './Confirm';
 import { Icon, initial } from './Icon';
 
 interface Props {
@@ -21,6 +22,7 @@ export function BlockoutsPanel({ people, blockouts, minDate, onAdd, onDelete }: 
   const [note, setNote] = useState('');
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
+  const ask = useConfirm();
 
   const who = person === OTHER ? otherName.trim() : person;
   const today = todayISO();
@@ -163,8 +165,13 @@ export function BlockoutsPanel({ people, blockouts, minDate, onAdd, onDelete }: 
                       type="button"
                       className="icon-btn"
                       aria-label={`Delete ${g.name} unavailable ${fmtRange(b.start, b.end)}`}
-                      onClick={() => {
-                        if (confirm(`Remove ${g.name}’s unavailable dates ${fmtRange(b.start, b.end)}?`)) onDelete(b.id);
+                      onClick={async () => {
+                        if (
+                          await ask(`Remove ${g.name}’s unavailable dates ${fmtRange(b.start, b.end)}?`, {
+                            confirmLabel: 'Remove dates',
+                          })
+                        )
+                          onDelete(b.id);
                       }}
                     >
                       <Icon name="trash" />

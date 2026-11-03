@@ -11,9 +11,11 @@ import { useCareData } from './data/store';
 import { blockIndexForDate, blockoutsForBlock, computeBlocks, samePerson } from './lib/blocks';
 import { fmtRange, todayISO } from './lib/dates';
 import { Icon } from './components/Icon';
+import { useConfirm } from './components/Confirm';
 
 export default function App() {
   const { store, state, error } = useCareData();
+  const ask = useConfirm();
   const [guideOpen, setGuideOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [assignStart, setAssignStart] = useState<string | null>(null);
@@ -147,10 +149,12 @@ export default function App() {
                 }}
                 view={v}
                 onSignUp={() => setAssignStart(v.block.start)}
-                onRemove={() => {
+                onRemove={async () => {
                   if (
                     v.assignment &&
-                    confirm(`Remove ${v.assignment.person} from ${fmtRange(v.block.start, v.block.end)}?`)
+                    (await ask(`Remove ${v.assignment.person} from ${fmtRange(v.block.start, v.block.end)}? The block will show as open again.`, {
+                      confirmLabel: 'Remove',
+                    }))
                   ) {
                     store.clearAssignment(v.block.start);
                   }
