@@ -22,19 +22,16 @@ npm run dev
 
 If Firebase isn't configured, the app runs in **local mode**: everything is saved only in that browser. This is handy for trying it out.
 
-## Share it with the family (Firebase + GitHub Pages)
+## Live site (Firebase + GitHub Pages)
 
-1. **Create a Firebase project** at <https://console.firebase.google.com> (the free Spark plan is plenty).
-2. **Create the database:** go to Build → Firestore Database → Create database, choose a location near you, and start in *production mode*.
-3. **Paste in the rules:** go to Firestore → Rules, paste the contents of [`firestore.rules`](firestore.rules), and click Publish.
-4. **Register a web app:** go to Project settings → General → Your apps → Web (`</>`), then copy the `firebaseConfig` values.
-5. **For local development**, copy `.env.example` to `.env.local` and fill in those values.
-6. **For hosting:**
-   - In the GitHub repo, go to Settings → Secrets and variables → Actions. Add each `VITE_FIREBASE_*` value from `.env.example` as a repository secret.
-   - In Settings → Pages, set Source to **GitHub Actions**.
-   - Push to `main` (or run the workflow manually). The site is published at `https://<your-user>.github.io/Care-Blocks/`.
+The live site is **https://khellhake.github.io/Care-Blocks/**. Every push to `main` rebuilds and redeploys it.
 
-   The Firebase web config isn't secret (it ships in the page anyway). Storing it as secrets just keeps it out of the code.
+- **Database:** Firebase project `careblocks-8b77e` (Firestore). The rules in [`firestore.rules`](firestore.rules) are pasted into Firestore → Rules in the Firebase console.
+- **Firebase web config:** lives in [`.env.production`](.env.production). This config isn't secret, since it ships inside the page anyway. Access is controlled by the Firestore rules.
+- **Hosting:** the workflow in `.github/workflows/deploy.yml` builds the app and publishes it to GitHub Pages. In the repo settings, Pages → Source must be set to **GitHub Actions**.
+- **Local development:** `npm run dev` stays in local mode. To develop against the real database, copy `.env.production` to `.env.local`.
+
+**First visit after going live:** open Settings first to create the family passcode, then set the real care dates.
 
 ## Develop
 
