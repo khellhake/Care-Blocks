@@ -27,7 +27,7 @@ export function Header({ patientName, startDate, endDate, covered, total, onGuid
       </div>
       <div className="header-actions">
         <button type="button" className="btn btn-outline" onClick={onGuide}>
-          <Icon name="book" /> Care Guide
+          <Icon name="heart" /> Care Guide
         </button>
         <button type="button" className="btn btn-outline" onClick={onSettings}>
           <Icon name="gear" /> Settings
