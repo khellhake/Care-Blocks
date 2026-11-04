@@ -66,7 +66,7 @@ export function AssignSheet({ block, current, people, blockouts, onClose, onConf
           </button>
           <button
             type="button"
-            className={`btn ${conflicts.length ? 'btn-warn' : 'btn-primary'}`}
+            className={`btn ${conflicts.length ? 'btn-warn' : 'btn-neutral'}`}
             disabled={!person || saving}
             onClick={submit}
           >

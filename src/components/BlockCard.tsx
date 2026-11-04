@@ -117,7 +117,7 @@ export const BlockCard = forwardRef<HTMLElement, Props>(function BlockCard({ vie
             </button>
           </>
         ) : (
-          <button type="button" className="btn btn-primary btn-block" onClick={onSignUp}>
+          <button type="button" className="btn btn-neutral btn-block" onClick={onSignUp}>
             <Icon name="plus" /> Sign up
           </button>
         )}

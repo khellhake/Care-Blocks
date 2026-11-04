@@ -197,6 +197,12 @@ textarea {
   color: #06210f;
 }
 .btn-primary:hover { background: #3fd282; }
+/* Neutral action (e.g. Sign up). Green is reserved for "Covered". */
+.btn-neutral {
+  background: var(--neutral-btn);
+  color: #fff;
+}
+.btn-neutral:hover { background: var(--neutral-btn-hover); }
 .btn-warn {
   background: var(--amber);
   color: #2a1d00;
