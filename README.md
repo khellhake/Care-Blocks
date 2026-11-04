@@ -28,7 +28,7 @@ The live site is **https://khellhake.github.io/Care-Blocks/**. Every push to `ma
 
 - **Database:** Firebase project `careblocks-8b77e` (Firestore). The rules in [`firestore.rules`](firestore.rules) are pasted into Firestore → Rules in the Firebase console.
 - **Firebase web config:** lives in [`.env.production`](.env.production). This config isn't secret, since it ships inside the page anyway. Access is controlled by the Firestore rules.
-- **Hosting:** the workflow in `.github/workflows/deploy.yml` builds the app and publishes it to GitHub Pages. In the repo settings, Pages → Source must be set to **GitHub Actions**.
+- **Hosting:** the workflow in `.github/workflows/deploy.yml` builds the app and publishes it to GitHub Pages. In the repo settings, Pages → Source must be set to **GitHub Actions**. Don't click **Configure** on any workflow that the Pages screen suggests: the repo already has its own, and the suggested "Static HTML" one would publish the unbuilt source (a blank page).
 - **Local development:** `npm run dev` stays in local mode. To develop against the real database, copy `.env.production` to `.env.local`.
 
 **First visit after going live:** open Settings first to create the family passcode, then set the real care dates.
