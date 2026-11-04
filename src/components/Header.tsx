@@ -18,8 +18,11 @@ export function Header({ patientName, startDate, endDate, covered, total, onGuid
     <header className="header">
       <div className="header-top">
         <div>
-          <h1>Care for {patientName}</h1>
-          {total > 0 && <p className="window">{fmtRange(startDate, endDate)}</p>}
+          <h1>Care Blocks</h1>
+          <p className="window">
+            For {patientName}
+            {total > 0 && ` · ${fmtRange(startDate, endDate)}`}
+          </p>
         </div>
       </div>
       <div className="header-actions">
