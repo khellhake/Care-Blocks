@@ -12,6 +12,7 @@ import { blockIndexForDate, blockoutsForBlock, computeBlocks, samePerson } from 
 import { fmtRange, todayISO } from './lib/dates';
 import { Icon } from './components/Icon';
 import { useConfirm } from './components/Confirm';
+import { lockThisDevice } from './components/SiteGate';
 
 export default function App() {
   const { store, state, error } = useCareData();
@@ -178,6 +179,10 @@ export default function App() {
         {store.mode === 'local'
           ? 'Local mode: changes are saved only in this browser. Connect Firebase to share with family.'
           : 'Changes are shared with everyone instantly.'}
+        <br />
+        <button type="button" className="link-btn" onClick={lockThisDevice}>
+          Lock this device
+        </button>
       </footer>
 
       <AssignSheet

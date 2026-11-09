@@ -774,6 +774,37 @@ dialog.modal.sheet {
   text-align: center;
 }
 .footer.local-mode { color: var(--amber-text); }
+.link-btn {
+  margin-top: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- site password gate ---------- */
+.gate {
+  display: flex;
+  align-items: center;
+  min-height: 100dvh;
+}
+.gate-card {
+  width: 100%;
+  padding: 28px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.gate-card h1 { font-size: var(--fs-2xl); line-height: 1.15; }
+.gate-intro { margin: 8px 0 20px; color: var(--text-muted); }
+.password-row { display: flex; gap: 8px; }
+.password-row .input { flex: 1; }
+.password-toggle { flex: none; min-width: 80px; }
+.gate-submit { margin-top: 18px; }
 
 @media (max-width: 360px) {
   :root { --gutter: 12px; --rail-w: 48px; }

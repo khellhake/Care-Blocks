@@ -33,6 +33,14 @@ The live site is **https://khellhake.github.io/Care-Blocks/**. Every push to `ma
 
 **First visit after going live:** open Settings first to create the family passcode, then set the real care dates.
 
+## Site password
+
+The site asks for a family password once on each device (Kevin has it). Only a hash of the password is stored in the code (`src/components/SiteGate.tsx`), never the password itself. The footer has a "Lock this device" button.
+
+This is a light lock: it keeps out people who stumble on the link, but the repo and database address are public, so it isn't real security. The planned upgrade is a Firebase login with database rules that require it. It needs two steps in the Firebase console: turn on Email/Password sign-in, then paste the new rules.
+
+To change the password, replace `SITE_PASSWORD_HASH` with the SHA-256 of `care-blocks:` followed by the new password in lowercase.
+
 ## Develop
 
 ```bash
