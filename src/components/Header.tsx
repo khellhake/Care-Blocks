@@ -1,5 +1,6 @@
 import { fmtRange } from '../lib/dates';
 import { Icon } from './Icon';
+import { Logo } from './Logo';
 
 interface Props {
   patientName: string;
@@ -18,7 +19,10 @@ export function Header({ patientName, startDate, endDate, covered, total, onGuid
     <header className="header">
       <div className="header-top">
         <div>
-          <h1>Care Blocks</h1>
+          <div className="brand">
+            <Logo size={40} />
+            <h1>Care Blocks</h1>
+          </div>
           <p className="window">
             For {patientName}
             {total > 0 && ` · ${fmtRange(startDate, endDate)}`}

@@ -1,5 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react';
 import { hashPasscode } from '../data/store';
+import { Logo } from './Logo';
 
 /**
  * Light site lock. Only a hash of the family password is stored here, never the password.
@@ -58,6 +59,7 @@ export function SiteGate({ children }: { children: ReactNode }) {
   return (
     <main className="app gate">
       <form className="gate-card" onSubmit={submit}>
+        <Logo size={56} />
         <h1>Care Blocks</h1>
         <p className="gate-intro">Enter the family password to see the care schedule.</p>
         <div className="field">
