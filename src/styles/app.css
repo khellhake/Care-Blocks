@@ -6,6 +6,7 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
   background: var(--bg);
 }
 
@@ -53,6 +54,8 @@ textarea {
 .app {
   max-width: var(--max-w);
   margin: 0 auto;
+  /* backstop: nothing inside can make the page scroll sideways */
+  overflow-x: clip;
   padding-left: max(var(--gutter), env(safe-area-inset-left, 0px));
   padding-right: max(var(--gutter), env(safe-area-inset-right, 0px));
   padding-block: 0 calc(48px + env(safe-area-inset-bottom, 0px));
@@ -536,6 +539,7 @@ textarea {
 .field {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   gap: 6px;
   margin-top: 14px;
 }
@@ -572,8 +576,19 @@ textarea {
   resize: vertical;
   line-height: 1.4;
 }
+/* iOS Safari gives date inputs a built-in minimum width and ignores width:100%,
+   so they spill past their card. Dropping the native appearance lets them size normally. */
 input[type='date'] {
   color-scheme: dark;
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+input[type='date']::-webkit-date-and-time-value {
+  text-align: left;
 }
 /* Date pairs (first/last day, start/end) stack: phone date inputs are too wide to sit side by side. */
 .row {
