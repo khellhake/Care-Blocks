@@ -424,10 +424,11 @@ textarea {
   width: 100%;
   touch-action: none;
   cursor: grab;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  /* one equal row per block (set inline), so any number of blocks fits inside the rail */
+  display: grid;
+  justify-items: center;
   align-items: center;
+  overflow: hidden;
   padding: 10px 0;
   border-radius: 28px;
   background: var(--surface);
@@ -447,9 +448,9 @@ textarea {
 .rail-sq {
   display: block;
   position: relative;
-  flex: 0 1 30px;
-  min-height: 8px;
   width: 30px;
+  height: calc(100% - 4px);
+  min-height: 3px;
   max-height: 30px;
   border-radius: 6px;
   background: var(--gray-bg);
@@ -457,7 +458,6 @@ textarea {
   padding: 0;
   cursor: pointer;
 }
-.rail-sq + .rail-sq { margin-top: 4px; }
 .rail-sq.assigned {
   background: var(--green);
   border: 2px solid var(--green);
@@ -492,10 +492,10 @@ textarea {
   height: 44px;
   margin-left: -22px;
   border-radius: 10px;
+  transition: transform 0.15s ease-out, height 0.15s ease-out;
   border: 3px solid var(--text);
   box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.6), 0 4px 14px rgba(0, 0, 0, 0.5);
   pointer-events: none;
-  transition: transform 0.15s ease-out;
 }
 .rail-track.dragging .rail-thumb { transition: none; }
 .rail-label {

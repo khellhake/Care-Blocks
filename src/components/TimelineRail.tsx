@@ -18,7 +18,7 @@ export function TimelineRail({ views, activeIndex, onSelect }: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
   const sqRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const [dragging, setDragging] = useState(false);
-  const [thumbY, setThumbY] = useState(0);
+  const [thumb, setThumb] = useState({ y: 0, h: 44 });
   const lastIdx = useRef(activeIndex);
 
   const n = views.length;
@@ -28,7 +28,10 @@ export function TimelineRail({ views, activeIndex, onSelect }: Props) {
   useLayoutEffect(() => {
     const place = () => {
       const sq = sqRefs.current[idx];
-      if (sq) setThumbY(sq.offsetTop + sq.offsetHeight / 2 - 22);
+      if (!sq) return;
+      // Thumb hugs the square; with many blocks the squares get short, so the thumb does too.
+      const h = Math.min(44, sq.offsetHeight + 14);
+      setThumb({ y: sq.offsetTop + sq.offsetHeight / 2 - h / 2, h });
     };
     place();
     const ro = new ResizeObserver(place);
@@ -128,6 +131,7 @@ export function TimelineRail({ views, activeIndex, onSelect }: Props) {
         onPointerUp={onPointerUp}
         onPointerCancel={onPointerUp}
         onKeyDown={onKeyDown}
+        style={{ gridTemplateRows: `repeat(${n}, minmax(0, 1fr))` }}
       >
         {views.map((v, i) => (
           <span
@@ -143,7 +147,7 @@ export function TimelineRail({ views, activeIndex, onSelect }: Props) {
             {v.isToday && <span className="today-tick" />}
           </span>
         ))}
-        <div className="rail-thumb" style={{ transform: `translateY(${thumbY}px)` }}>
+        <div className="rail-thumb" style={{ transform: `translateY(${thumb.y}px)`, height: thumb.h }}>
           {dragging && <span className="rail-label">{fmtRange(active.block.start, active.block.end)}</span>}
         </div>
       </div>
