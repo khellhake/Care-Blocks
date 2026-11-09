@@ -575,10 +575,10 @@ textarea {
 input[type='date'] {
   color-scheme: dark;
 }
+/* Date pairs (first/last day, start/end) stack: phone date inputs are too wide to sit side by side. */
 .row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr);
 }
 .row .field { margin-top: 14px; }
 .form-error {
@@ -808,7 +808,6 @@ dialog.modal.sheet {
 
 @media (max-width: 360px) {
   :root { --gutter: 12px; --rail-w: 48px; }
-  .row { grid-template-columns: 1fr; }
   .header-actions { flex-direction: column; }
 }
 
