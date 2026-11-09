@@ -21,7 +21,6 @@ export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [assignStart, setAssignStart] = useState<string | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [showPast, setShowPast] = useState(false);
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   const today = todayISO();
@@ -44,14 +43,8 @@ export default function App() {
     });
   }, [state, today]);
 
-  // The list starts at this week; finished blocks are tucked behind a "Show past blocks" button.
-  // If every block is in the past (care has ended), show them all.
-  const pastCount = views.filter((v) => v.isPast).length;
-  const hidePast = !showPast && pastCount < views.length;
-  const shown = hidePast ? views.filter((v) => !v.isPast) : views;
-
   const todayIndex = blockIndexForDate(
-    shown.map((v) => v.block),
+    views.map((v) => v.block),
     today,
   );
 
@@ -77,7 +70,7 @@ export default function App() {
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);
     };
-  }, [shown.length]);
+  }, [views.length]);
 
   const scrollToBlock = useCallback((i: number, smooth: boolean) => {
     setActiveIndex(i);
@@ -146,20 +139,10 @@ export default function App() {
 
       <div className="timeline-wrap">
         <div className="timeline">
-          {views.length > 0 && pastCount > 0 && pastCount < views.length && (
-            <button
-              type="button"
-              className="btn btn-outline btn-block"
-              aria-expanded={showPast}
-              onClick={() => setShowPast((s) => !s)}
-            >
-              {showPast ? 'Hide past blocks' : `Show ${pastCount} past block${pastCount === 1 ? '' : 's'}`}
-            </button>
-          )}
           {views.length === 0 ? (
             <p className="empty">No care dates set yet. Open Settings to choose a start and end date.</p>
           ) : (
-            shown.map((v, i) => (
+            views.map((v, i) => (
               <BlockCard
                 key={v.block.start}
                 ref={(el) => {
@@ -181,7 +164,7 @@ export default function App() {
             ))
           )}
         </div>
-        <TimelineRail views={shown} activeIndex={activeIndex} onSelect={scrollToBlock} />
+        <TimelineRail views={views} activeIndex={activeIndex} onSelect={scrollToBlock} />
       </div>
 
       <BlockoutsPanel
